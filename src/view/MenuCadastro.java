@@ -37,24 +37,23 @@ public class MenuCadastro {
 
 	private void encaminharParaTelaEscolhida(int opcao) {
 		switch(opcao){
-		case OPCAO_CADASTRO_PRATO: {
-			MenuPratos menuPratos = new MenuPratos();
-			menuPratos.apresentarMenuPratos();
-			break;
-		}
-		case OPCAO_CADASTRO_SOBREMESA: {
-			MenuSobremesa menuSobremesa = new MenuSobremesa();
-			menuSobremesa.apresentarMenuSobremesa();
-		}
-		case OPCAO_CADASTRO_BEBIDA: {
-			MenuBebidas menuBebidas = new MenuBebidas();
-			menuBebidas.apresentarMenuBebidas();
-			break;
-		}
-		default: {
-			System.out.println("\nOpção Inválida");
-		}
-
+			case OPCAO_CADASTRO_PRATO: {
+				MenuPratos menuPratos = new MenuPratos();
+				menuPratos.apresentarMenuPratos();
+				break;
+			}
+			case OPCAO_CADASTRO_SOBREMESA: {
+				MenuSobremesa menuSobremesa = new MenuSobremesa();
+				menuSobremesa.apresentarMenuSobremesa();
+			}
+			case OPCAO_CADASTRO_BEBIDA: {
+				MenuBebidas menuBebidas = new MenuBebidas();
+				menuBebidas.apresentarMenuBebidas();
+				break;
+			}
+			default: {
+				System.out.println("\nOpção Inválida");
+			}
 		}
 	}
 

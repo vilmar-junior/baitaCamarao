@@ -2,13 +2,13 @@ package model.vo;
 
 public class PratoVO {
 	
-	private int idPrato;
+	private int id;
 	private String nome;
 	private double preco;
 	
-	public PratoVO(int idPrato, String nome, double preco) {
+	public PratoVO(int id, String nome, double preco) {
 		super();
-		this.idPrato = idPrato;
+		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 	}
@@ -17,12 +17,12 @@ public class PratoVO {
 		super();
 	}
 
-	public int getIdPrato() {
-		return idPrato;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdPrato(int idPrato) {
-		this.idPrato = idPrato;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -43,7 +43,7 @@ public class PratoVO {
 
 	public void imprimir() {
 		System.out.printf("%3d   %-40s   %-20s \n", 
-		this.getIdPrato(), 
+		this.getId(), 
 		this.getNome(), 
 		this.getPreco());
 	}

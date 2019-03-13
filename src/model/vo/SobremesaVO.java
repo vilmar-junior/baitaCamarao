@@ -1,5 +1,11 @@
 package model.vo;
 
+/**
+ * Classe que representa uma entidade Sobremesa, uma subclasse de Prato.
+ * 
+ * @author Vilmar César Pereira Júnior
+ *
+ */
 public class SobremesaVO extends PratoVO {
 
 	private boolean light;
@@ -14,7 +20,7 @@ public class SobremesaVO extends PratoVO {
 
 	@Override
 	public String toString() {
-		return "SobremesaVO [IdPrato=" + getIdPrato() + ", Nome=" + getNome()
+		return "SobremesaVO [IdPrato=" + getId() + ", Nome=" + getNome()
 				+ ", Preco=" + getPreco() + ",light=" + light + "]";
 	}
 	

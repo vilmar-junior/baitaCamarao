@@ -90,7 +90,7 @@ public class MenuPratos {
 				opcao = 3;
 				PratoVO pratoVO = new PratoVO();
 				System.out.print("\nInforme o código do Prato: ");
-				pratoVO.setIdPrato(Integer.parseInt(teclado.next()));
+				pratoVO.setId(Integer.parseInt(teclado.next()));
 
 				PratoVO prato = controladoraPrato.consultarPratoController(pratoVO);
 				System.out.print("\n--------- RESULTADO DA CONSULTA ---------");
@@ -114,7 +114,7 @@ public class MenuPratos {
 	private void atualizarPrato() {
 		PratoVO pratoVO = new PratoVO();
 		System.out.print("\nInforme o código do Prato: ");
-		pratoVO.setIdPrato(Integer.parseInt(teclado.next()));
+		pratoVO.setId(Integer.parseInt(teclado.next()));
 		teclado.nextLine();
 		System.out.print("Digite o nome do Prato: ");
 		pratoVO.setNome(teclado.nextLine());
@@ -128,7 +128,7 @@ public class MenuPratos {
 	private void excluirPrato() {
 		PratoVO pratoVO = new PratoVO();
 		System.out.print("\nInforme o código do Prato: ");
-		pratoVO.setIdPrato(Integer.parseInt(teclado.next()));
+		pratoVO.setId(Integer.parseInt(teclado.next()));
 
 		ControladoraPrato controladoraPrato = new ControladoraPrato();
 		controladoraPrato.excluirPratoController(pratoVO);

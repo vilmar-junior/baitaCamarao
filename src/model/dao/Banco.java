@@ -9,17 +9,17 @@ import java.sql.Statement;
 
 public class Banco {
 
-	private static final String driver = "com.mysql.jdbc.Driver";
-	private static final String banco = "dbfoodtruck";
-	private static final String conexao = "jdbc:mysql://localhost:3306/" + banco;
-	private static final String user = "root";
-	private static final String password = "";
+	private static final String DRIVER = "com.mysql.jdbc.Driver";
+	private static final String BANCO = "dbfoodtruck";
+	private static final String CONEXAO = "jdbc:mysql://localhost:3306/" + BANCO;
+	private static final String USUARIO = "root";
+	private static final String SENHA = "";
 	
 	public static Connection getConnection(){
 		try {
 			Connection conn = null;
-			Class.forName(driver);
-			conn = DriverManager.getConnection(conexao, user, password);
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(CONEXAO, USUARIO, SENHA);
 			return conn;
 		} catch (ClassNotFoundException e) {
 			System.out.println("Classe do Driver não foi encontrada.");
@@ -90,8 +90,3 @@ public class Banco {
 		}
 	}
 }
-
-
-
-
-

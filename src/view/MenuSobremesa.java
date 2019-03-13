@@ -10,7 +10,7 @@ public class MenuSobremesa {
 		String nomeInformado = JOptionPane.showInputDialog("Informe o nome:");
 
 		double preco = obterPreco();
-		boolean light = obterSeEhLight();
+		boolean light = verificarSeEhLight();
 
 		SobremesaVO novaSobremesa = new SobremesaVO();
 		novaSobremesa.setNome(nomeInformado);
@@ -19,9 +19,11 @@ public class MenuSobremesa {
 
 		JOptionPane.showMessageDialog(null, "Sobremesa salva!\n "
 				+ novaSobremesa.toString());
+		
+		//TODO futuramente temos que salvar a nova sobremesa no BD...
 	}
 
-	private boolean obterSeEhLight() {
+	private boolean verificarSeEhLight() {
 		boolean light = false;
 		String stringEhLight = JOptionPane.showInputDialog("É light (Sim/Não ou S/N)?");
 		if(stringEhLight.equals("Sim") || stringEhLight.equals("S")) {
@@ -30,7 +32,7 @@ public class MenuSobremesa {
 			light = false;
 		}else {
 			JOptionPane.showMessageDialog(null, "Informe se é light usando apenas as opções Sim/Não ou S/N");
-			obterSeEhLight();
+			verificarSeEhLight();
 		}
 		return light;
 	}

@@ -40,7 +40,7 @@ public class PratoBO {
 
 	public void atualizarPratoBO(PratoVO pratoVO) {
 		PratoDAO pratoDAO = new PratoDAO();
-		if(pratoDAO.existeRegistroPorIdPrato(pratoVO.getIdPrato())){
+		if(pratoDAO.existeRegistroPorIdPrato(pratoVO.getId())){
 			int resultado = pratoDAO.atualizarPratoDAO(pratoVO);
 			if(resultado == 1){
 				System.out.println("\nPrato atualizado com Sucesso.");
@@ -54,7 +54,7 @@ public class PratoBO {
 
 	public void excluirPratoBO(PratoVO pratoVO) {
 		PratoDAO pratoDAO = new PratoDAO();
-		if(pratoDAO.existeRegistroPorIdPrato(pratoVO.getIdPrato())){
+		if(pratoDAO.existeRegistroPorIdPrato(pratoVO.getId())){
 			int resultado = pratoDAO.excluirPratoDAO(pratoVO);
 			if(resultado == 1){
 				System.out.println("\nPrato excluído com Sucesso.");

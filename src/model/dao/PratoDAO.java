@@ -57,7 +57,7 @@ public class PratoDAO {
 			resultado = stmt.executeQuery(query);
 			while(resultado.next()){
 				PratoVO pratoVO = new PratoVO();
-				pratoVO.setIdPrato(Integer.parseInt(resultado.getString(1)));
+				pratoVO.setId(Integer.parseInt(resultado.getString(1)));
 				pratoVO.setNome(resultado.getString(2));
 				pratoVO.setPreco(Double.parseDouble(resultado.getString(3)));
 				pratosVO.add(pratoVO);
@@ -78,12 +78,12 @@ public class PratoDAO {
 		ResultSet resultado = null;
 		PratoVO prato = new PratoVO();
 		
-		String query = "SELECT idprato, nome, preco FROM prato WHERE idprato = " + pratoVO.getIdPrato();
+		String query = "SELECT idprato, nome, preco FROM prato WHERE idprato = " + pratoVO.getId();
 		
 		try{
 			resultado = stmt.executeQuery(query);
 			while(resultado.next()){
-				prato.setIdPrato(Integer.parseInt(resultado.getString(1)));
+				prato.setId(Integer.parseInt(resultado.getString(1)));
 				prato.setNome(resultado.getString(2));
 				prato.setPreco(Double.parseDouble(resultado.getString(3)));
 			}
@@ -124,7 +124,7 @@ public class PratoDAO {
 		int resultado = 0;
 		String query = "UPDATE prato SET nome = '" + pratoVO.getNome() 
 					+ "', preco = " + pratoVO.getPreco() 
-					+ " WHERE idprato = " + pratoVO.getIdPrato();
+					+ " WHERE idprato = " + pratoVO.getId();
 		try {
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e) {
@@ -140,7 +140,7 @@ public class PratoDAO {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		int resultado = 0;
-		String query = "DELETE FROM prato WHERE idprato = " + pratoVO.getIdPrato();
+		String query = "DELETE FROM prato WHERE idprato = " + pratoVO.getId();
 		try{
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e){
