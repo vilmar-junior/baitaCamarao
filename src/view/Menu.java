@@ -41,7 +41,7 @@ public class Menu {
 		switch(opcao){
 			case OPCAO_MENU_CADASTRO: {
 				MenuCadastro menuCadastro = new MenuCadastro();
-				menuCadastro.apresentarMenuCadastro();
+				menuCadastro.apresentarMenuCadastroGrafico();
 				break;
 			}
 			case OPCAO_MENU_VENDA: {
