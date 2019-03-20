@@ -7,20 +7,33 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import model.vo.SobremesaVO;
 
+/**
+ * 
+ * @author Vilmar C. Pereira Júnior
+ *
+ */
 public class SobremesaDAO {
 
+	/**
+	 * Verifica se há sobremesa cadastrada no banco, dado um nome informado.
+	 * 
+	 * @param nome o nome da sobremesa
+	 * @return true caso exista, false caso contrário
+	 */
 	public boolean existeRegistroPorNome(String nome) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
-		String query = "SELECT * FROM sobremesa WHERE nome like '" + nome + "'";
+		String query = "SELECT * FROM sobremesa WHERE UPPER(nome) = '" + nome.toUpperCase() + "'";
 		try {
 			resultado = stmt.executeQuery(query);
 			if (resultado.next()){
 				return true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query que verifica existência de Sobremesa por Nome.");
+			System.out.println("Erro ao executar a Query que "
+					+ "verifica existência de Sobremesa por Nome. Erro:"
+					+ e.getMessage());
 			return false;
 		} finally {
 			Banco.closeResultSet(resultado);
@@ -30,17 +43,35 @@ public class SobremesaDAO {
 		return false;
 	}
 
+	/**
+	 * Insere uma nova sobremesa.
+	 * 
+	 * @param sobremesa o objeto a ser persistido.
+	 * @return 1 caso tenha salvo no banco, 0 caso contrário
+	 */
 	public int cadastrarSobremesaDAO(SobremesaVO sobremesa) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
+		
+		int intLight;
+		
+		// código similar às linhas 61-65:
+		// (expressaoBooleana) ? valorCasoTrue : valorCasoFalse; --> if ternário 
+		// strLight = sobremesa.isLight() ? "1" : "0"; 
+		if(sobremesa.isLight()) {
+			intLight = 1;
+		}else {
+			intLight = 0;
+		}
+		
 		int resultado = 0;
 		String query = "INSERT INTO sobremesa (nome, preco, light) VALUES ('" + sobremesa.getNome() 
 		+ "', " + sobremesa.getPreco() 
-		+ "," + sobremesa.isLight() + ")"; //TODO testar o insert
+		+ "," + intLight + ")";
 		try {
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query de Cadastro do Sobremesa.");
+			System.out.println("Erro ao executar a Query de Cadastro do Sobremesa. Erro: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
@@ -133,6 +164,40 @@ public class SobremesaDAO {
 		return sobremesa;
 	}
 	
+	/**
+	 * Busca uma sobremesa dado um nome
+	 * 
+	 * @param nomeSobremesa o nome da sobremesa
+	 * @return uma sobremesa caso exista, null caso contrário.
+	 */
+	public SobremesaVO consultarSobremesaPorNome(String nomeSobremesa) {
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet resultado = null;
+		SobremesaVO sobremesa = null;
+		
+		String query = "SELECT id, nome, preco, light "
+				+ "FROM Sobremesa WHERE UPPER(nome) = '" + nomeSobremesa.toUpperCase() + "'";
+		
+		try{
+			resultado = stmt.executeQuery(query);
+			while(resultado.next()){
+				sobremesa = new SobremesaVO();
+				sobremesa.setId(Integer.parseInt(resultado.getString(1)));
+				sobremesa.setNome(resultado.getString(2));
+				sobremesa.setPreco(Double.parseDouble(resultado.getString(3)));
+				sobremesa.setLight(resultado.getBoolean(4));
+			}
+		} catch (SQLException e){
+			System.out.println("Erro ao executar a Query de Consulta de Sobremesa por nome. Erro: " + e.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return sobremesa;
+	}
+	
 	public boolean existeRegistroPorId(int idSobremesa) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
@@ -154,18 +219,18 @@ public class SobremesaDAO {
 		return false;
 	}
 
-	public int atualizarSobremesa(SobremesaVO SobremesaVO) {
+	public int atualizarSobremesa(SobremesaVO sobremesaVO) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		int resultado = 0;
-		String query = "UPDATE Sobremesa SET nome = '" + SobremesaVO.getNome() 
-					+ "', preco = " + SobremesaVO.getPreco()
-					+ "', light = " + SobremesaVO.isLight()
-					+ " WHERE id = " + SobremesaVO.getId();
+		String query = "UPDATE Sobremesa SET nome = '" + sobremesaVO.getNome() 
+					+ "', preco = " + sobremesaVO.getPreco()
+					+ "', light = " + (sobremesaVO.isLight() ? 1 : 0)
+					+ " WHERE id = " + sobremesaVO.getId();
 		try {
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query de Atualização do Sobremesa.");
+			System.out.println("Erro ao executar a Query de Atualização do Sobremesa. Erro: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
@@ -173,11 +238,11 @@ public class SobremesaDAO {
 		return resultado;
 	}
 
-	public int excluirSobremesa(SobremesaVO SobremesaVO) {
+	public int excluirSobremesa(SobremesaVO sobremesaVO) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		int resultado = 0;
-		String query = "DELETE FROM Sobremesa WHERE id = " + SobremesaVO.getId();
+		String query = "DELETE FROM Sobremesa WHERE id = " + sobremesaVO.getId();
 		try{
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e){

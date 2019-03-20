@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.JOptionPane;
 
+import model.bo.SobremesaBO;
 import model.vo.SobremesaVO;
 
 public class ControladoraSobremesa {
@@ -20,37 +21,65 @@ public class ControladoraSobremesa {
 	public String salvar(String nome, String preco, boolean light) {
 		String mensagem = "";
 		
-		if(nome == null || nome.trim().length() < 3) {
-			mensagem += "- Nome deve possuir pelo menos 3 caracteres \n";
-		}
-		
-		double precoConvertidoParaDouble = 0;
-		if(!stringPrecoEstaCorreto(preco)) {
-			mensagem += "- Informe o valor com UMA vírgula (,)!";
-		}else {
-			//Converte o preco para double
-			preco = preco.replace(",", ".");
-			precoConvertidoParaDouble = Double.parseDouble(preco);
-		}
+		mensagem = validarCampos(nome, preco);
 		
 		if(mensagem == "") {
 			SobremesaVO novaSobremesa = new SobremesaVO();
 			novaSobremesa.setNome(nome);
-			novaSobremesa.setPreco(precoConvertidoParaDouble);
+			novaSobremesa.setPreco(converterPreco(preco));
 			novaSobremesa.setLight(light);
 			
-			//Chamar BO, passando uma nova sobremesa -> por enquanto só fingindo :)
-//			SobremesaBO bo = new SobremesaBO();
-//			bo.salvar(novaSobremesa);
-			mensagem = "Salvou com sucesso (apesar de não salvar nada ainda :D)!\n"
-					+ novaSobremesa.toString();
-			
+			SobremesaBO bo = new SobremesaBO();
+			mensagem = bo.cadastrar(novaSobremesa);
 		}
-		
 		
 		return mensagem;
 	}
 	
+	public String atualizar(int idSobremesa, String nome, String preco, boolean light) {
+		String mensagem = "";
+		
+		mensagem = validarCampos(nome, preco);
+		
+		SobremesaBO bo = new SobremesaBO();
+		SobremesaVO sobremesa = new SobremesaVO();
+		sobremesa.setId(idSobremesa);
+		sobremesa.setNome(nome);
+		sobremesa.setPreco(converterPreco(preco));
+		sobremesa.setLight(light);
+		
+		mensagem = bo.atualizar(sobremesa);
+		
+		return mensagem;
+	}
+	
+	public SobremesaVO consultarSobremesaPorNome(String nome) {
+		
+		//TODO validar o parâmetro que vem da tela;
+		SobremesaBO bo = new SobremesaBO();
+		return bo.consultarSobremesaPorNome(nome);
+	}
+	
+	
+	private String validarCampos(String nome, String preco) {
+		String mensagem = "";
+		if(nome == null || nome.trim().length() < 3) {
+			mensagem += "- Nome deve possuir pelo menos 3 caracteres \n";
+		}
+		
+		if(!stringPrecoEstaCorreto(preco)) {
+			mensagem += "- Informe o valor com UMA vírgula (,)!";
+		}
+		return mensagem;
+	}
+
+	private double converterPreco(String preco) {
+		//Converte o preco para double
+		preco = preco.replace(",", ".");
+		double precoConvertidoParaDouble = Double.parseDouble(preco);
+		return precoConvertidoParaDouble;
+	}
+
 	private boolean stringPrecoEstaCorreto(String precoInformado) {
 		boolean stringPrecoEstaCorreta = false;
 		//"10,50" --split--> ["10","50"]

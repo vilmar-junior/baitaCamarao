@@ -51,7 +51,7 @@ public class TelaCadastroSobremesa extends JFrame {
 	public TelaCadastroSobremesa() {
 		setTitle("Cadastro de nova sobremesa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 316, 202);
+		setBounds(100, 100, 280, 202);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,12 +59,12 @@ public class TelaCadastroSobremesa extends JFrame {
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNome.setBounds(10, 40, 65, 14);
+		lblNome.setBounds(10, 40, 69, 14);
 		contentPane.add(lblNome);
 		
-		JLabel lblPreco = new JLabel("Preço");
+		JLabel lblPreco = new JLabel("Preço. R$");
 		lblPreco.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPreco.setBounds(10, 65, 65, 14);
+		lblPreco.setBounds(10, 65, 69, 14);
 		contentPane.add(lblPreco);
 		
 		txtNome = new JTextField();
@@ -73,6 +73,7 @@ public class TelaCadastroSobremesa extends JFrame {
 		txtNome.setColumns(10);
 		
 		txtPreco = new JTextField();
+		txtPreco.setToolTipText("Informe um valor separado com vírgula");
 		txtPreco.setBounds(85, 62, 165, 20);
 		contentPane.add(txtPreco);
 		txtPreco.setColumns(10);
@@ -93,7 +94,7 @@ public class TelaCadastroSobremesa extends JFrame {
 				
 			}
 		});
-		btnSalvar.setBounds(109, 129, 89, 23);
+		btnSalvar.setBounds(85, 129, 89, 23);
 		contentPane.add(btnSalvar);
 		
 	}
