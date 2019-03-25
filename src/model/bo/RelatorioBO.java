@@ -6,7 +6,12 @@ import model.dao.RelatorioDAO;
 import model.dto.ProdutoDTO;
 import model.dto.VendaDTO;
 
-
+/**
+ * Classe que representa as regras de negócio de Relatorio.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class RelatorioBO {
 
 	public ArrayList<ProdutoDTO> gerarRelatorioProdutosBO() {

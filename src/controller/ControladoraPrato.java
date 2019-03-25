@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import model.bo.PratoBO;
 import model.vo.PratoVO;
 
+/**
+ * Classe que representa um controller de pratos.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class ControladoraPrato {
 
 	public void cadastrarPratoController(PratoVO pratoVO) {
@@ -31,5 +37,4 @@ public class ControladoraPrato {
 		PratoBO pratoBO = new PratoBO();
 		pratoBO.excluirPratoBO(pratoVO);
 	}
-
 }

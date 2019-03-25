@@ -1,5 +1,11 @@
 package model.vo;
 
+/**
+ * Classe que representa a entidade Prato.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class PratoVO {
 	
 	private int id;
@@ -47,5 +53,4 @@ public class PratoVO {
 		this.getNome(), 
 		this.getPreco());
 	}
-	
 }

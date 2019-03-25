@@ -1,5 +1,12 @@
 package model.dto;
 
+/**
+ * Classe que representa um objeto de transfêrencia de dados 
+ * (Data Transfer Object - DTO) de Produto (Prato + Bebida).
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class ProdutoDTO {
 	
 	private int idProduto;
@@ -36,5 +43,4 @@ public class ProdutoDTO {
 		this.getIdProduto(), 
 		this.getNome());
 	}
-
 }

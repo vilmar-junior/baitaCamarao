@@ -1,5 +1,11 @@
 package model.vo;
 
+/**
+ * Classe que representa a entidade ItemPrato.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class ItemPratoVO{
 	
 	private int idItemPrato;
@@ -50,5 +56,4 @@ public class ItemPratoVO{
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-	
 }

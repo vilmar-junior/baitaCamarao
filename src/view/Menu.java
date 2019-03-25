@@ -4,6 +4,13 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+
+/**
+ * Classe que representa um menu principal do food truck.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class Menu {
 
 	private static final int OPCAO_MENU_CADASTRO = 1;

@@ -4,6 +4,14 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+
+/**
+ * Classe que representa um menu de cadastro do food truck.
+ * 
+ * @author Adriano de Melo
+ * 		   Vilmar César Pereira Júnior
+ *
+ */
 public class MenuCadastro {
 
 	Scanner teclado = new Scanner(System.in);
@@ -76,5 +84,4 @@ public class MenuCadastro {
 		System.out.print("\nDigite a Opção: ");
 		opcao = Integer.parseInt(teclado.next());
 	}
-
 }

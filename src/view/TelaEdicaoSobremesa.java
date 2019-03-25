@@ -1,25 +1,31 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controller.ControladoraSobremesa;
 import model.vo.SobremesaVO;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.JCheckBox;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
+/**
+ * Classe que representa uma tela de edição de sobremesas.
+ * 
+ * @author Vilmar César Pereira Júnior.
+ *
+ */
 public class TelaEdicaoSobremesa extends JFrame {
 
+	//Atributos da tela: componentes 'leves' ('lightweight')
 	private JPanel contentPane;
 	private JTextField txtNomePesquisa;
 	private JTextField txtNome;
@@ -43,7 +49,7 @@ public class TelaEdicaoSobremesa extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Construtor da tela.
 	 */
 	public TelaEdicaoSobremesa() {
 		setTitle("Edição de sobremesa");
@@ -64,32 +70,6 @@ public class TelaEdicaoSobremesa extends JFrame {
 		txtNomePesquisa.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ControladoraSobremesa controller = new ControladoraSobremesa();
-				SobremesaVO sobremesaEditavel = controller.consultarSobremesaPorNome(txtNomePesquisa.getText());
-				
-				if(sobremesaEditavel != null) {
-					//Desbloquear todos os campos
-					txtNome.setEnabled(true);
-					txtPreco.setEnabled(true);
-					cbxLight.setEnabled(true);
-					
-					//Preencher todos os campos 
-					txtNome.setText(sobremesaEditavel.getNome());
-					
-					String strPreco = "";
-					
-					strPreco = String.valueOf(sobremesaEditavel.getPreco());
-					strPreco = strPreco.replace('.', ',');
-					
-					txtPreco.setText(strPreco);
-					txtNome.setText(sobremesaEditavel.getNome());
-					cbxLight.setSelected(sobremesaEditavel.isLight());
-				}
-				
-			}
-		});
 		btnNewButton.setBounds(296, 19, 71, 23);
 		contentPane.add(btnNewButton);
 		
@@ -121,12 +101,63 @@ public class TelaEdicaoSobremesa extends JFrame {
 		contentPane.add(cbxLight);
 		
 		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.setBounds(136, 166, 89, 23);
+		contentPane.add(btnAtualizar);
+		
+		// ----------- Listeners (ouvintes) de ações sobre os componentes ----------- //
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO implementar, chamando o Controller
 			}
 		});
-		btnAtualizar.setBounds(136, 166, 89, 23);
-		contentPane.add(btnAtualizar);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ControladoraSobremesa controller = new ControladoraSobremesa();
+				try {
+					SobremesaVO sobremesaEditavel = controller.consultarSobremesaPorNome(txtNomePesquisa.getText());
+					
+					if(sobremesaEditavel != null) {
+						//Desbloquear todos os campos
+						habilitarCamposSobremesa(true);
+						
+						//Preencher todos os campos 
+						preencherCamposSobremesa(sobremesaEditavel);
+					}
+				} catch (Exception e) {
+					//Cuidado ao capturar Exception, pois qualquer exceção gerada será mostrada na tela!
+					JOptionPane.showMessageDialog(null, "Ocorreu um erro: " + e.getMessage());
+				}
+			}
+
+			/**
+			 * Preenche todos os campos da tela com uma sobremesa passada como parâmetro
+			 * @param sobremesa
+			 */
+			private void preencherCamposSobremesa(SobremesaVO sobremesa) {
+				txtNome.setText(sobremesa.getNome());
+				
+				String strPreco = "";
+				
+				strPreco = String.valueOf(sobremesa.getPreco());
+				strPreco = strPreco.replace('.', ',');
+				
+				txtPreco.setText(strPreco);
+				txtNome.setText(sobremesa.getNome());
+				cbxLight.setSelected(sobremesa.isLight());
+				
+			}
+			
+			/**
+			 * Habilita ou desabilita os campos da tela de sobremesa.
+			 * @param habilitado
+			 */
+			private void habilitarCamposSobremesa(boolean habilitado) {
+				txtNome.setEnabled(habilitado);
+				txtPreco.setEnabled(habilitado);
+				cbxLight.setEnabled(habilitado);
+			}
+		});
+	
 	}
 }

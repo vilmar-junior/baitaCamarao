@@ -1,10 +1,14 @@
 package controller;
 
-import javax.swing.JOptionPane;
-
 import model.bo.SobremesaBO;
 import model.vo.SobremesaVO;
 
+/**
+ * Classe que representa um controller de sobremesas.
+ * 
+ * @author Vilmar César Pereira Júnior.
+ *
+ */
 public class ControladoraSobremesa {
 
 	/**
@@ -53,9 +57,19 @@ public class ControladoraSobremesa {
 		return mensagem;
 	}
 	
-	public SobremesaVO consultarSobremesaPorNome(String nome) {
+	/**
+	 * Busca uma sobremesa dado o seu nome.
+	 * 
+	 * @param nome da sobremesa a ser buscada
+	 * @return SobremesaVO sobremesa encontrada. Caso encontre mais de uma, retorna a primeira.
+	 * @throws Exception caso o nome informado para a consulta seja inválido (deve possuir no mínimo 3 caracteres)
+	 */
+	public SobremesaVO consultarSobremesaPorNome(String nome) throws Exception {
+
+		if(nome == null || nome.isEmpty() || nome.trim().length() < 3) {
+			throw new Exception("Nome deve possuir no mínimo 3 caracteres");
+		}
 		
-		//TODO validar o parâmetro que vem da tela;
 		SobremesaBO bo = new SobremesaBO();
 		return bo.consultarSobremesaPorNome(nome);
 	}

@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,6 +9,12 @@ import java.text.SimpleDateFormat;
 
 import model.vo.VendaVO;
 
+/**
+ * Classe que permite o acesso à tabela Venda.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class VendaDAO {
 	
 	SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
@@ -156,5 +163,4 @@ public class VendaDAO {
 		}
 		return resultado;
 	}
-
 }

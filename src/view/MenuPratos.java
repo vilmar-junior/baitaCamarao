@@ -2,9 +2,17 @@ package view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import controller.ControladoraPrato;
 import model.vo.PratoVO;
 
+
+/**
+ * Classe que representa um menu de pratos.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class MenuPratos {
 
 	Scanner teclado = new Scanner(System.in);
@@ -133,5 +141,4 @@ public class MenuPratos {
 		ControladoraPrato controladoraPrato = new ControladoraPrato();
 		controladoraPrato.excluirPratoController(pratoVO);
 	}
-
 }

@@ -3,6 +3,12 @@ package model.bo;
 import model.dao.VendaDAO;
 import model.vo.VendaVO;
 
+/**
+ * Classe que representa as regras de negócio de Venda.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class VendaBO {
 
 	public void cadastrarVendaBO(VendaVO vendaVO) {
@@ -43,5 +49,4 @@ public class VendaBO {
 			System.out.println("\nVenda não existe na base de dados!");
 		}
 	}
-
 }

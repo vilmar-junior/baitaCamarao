@@ -8,9 +8,16 @@ import java.util.ArrayList;
 import model.dto.ProdutoDTO;
 import model.dto.VendaDTO;
 
-
+/**
+ * Classe que permite que consulta tabelas distintas
+ * para gerar relatórios.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class RelatorioDAO {
-
+	
+	//TODO incluir sobremesas
 	public ArrayList<ProdutoDTO> gerarRelatorioProdutosDAO() {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
@@ -158,5 +165,4 @@ public class RelatorioDAO {
 		}
 		return listaVendasDTO;
 	}
-
 }

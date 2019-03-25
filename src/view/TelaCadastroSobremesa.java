@@ -1,37 +1,34 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controller.ControladoraSobremesa;
-import model.vo.SobremesaVO;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-
+/**
+ * Classe que representa uma tela de cadastro de sobremesas.
+ * 
+ * @author Vilmar César Pereira Júnior.
+ *
+ */
 public class TelaCadastroSobremesa extends JFrame {
 
+	//Atributos da tela: componentes 'leves' ('lightweight')
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtPreco;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -83,6 +80,8 @@ public class TelaCadastroSobremesa extends JFrame {
 		contentPane.add(checkLight);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		
+		//Listener (ouvinte) de ação de mouse sobre o botão "Salvar"
 		btnSalvar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
@@ -96,6 +95,5 @@ public class TelaCadastroSobremesa extends JFrame {
 		});
 		btnSalvar.setBounds(85, 129, 89, 23);
 		contentPane.add(btnSalvar);
-		
 	}
 }

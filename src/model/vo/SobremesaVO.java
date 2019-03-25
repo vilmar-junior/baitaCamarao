@@ -23,5 +23,4 @@ public class SobremesaVO extends PratoVO {
 		return "SobremesaVO [IdPrato=" + getId() + ", Nome=" + getNome()
 				+ ", Preco=" + getPreco() + ",light=" + light + "]";
 	}
-	
 }

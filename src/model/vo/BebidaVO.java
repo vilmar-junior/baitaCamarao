@@ -1,5 +1,11 @@
 package model.vo;
 
+/**
+ * Classe que representa a entidade Bebida.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class BebidaVO {
 	
 	private int idBebida;
@@ -47,5 +53,4 @@ public class BebidaVO {
 		this.getNome(), 
 		this.getPreco());
 	}
-
 }

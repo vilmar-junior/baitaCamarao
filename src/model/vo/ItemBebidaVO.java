@@ -1,5 +1,11 @@
 package model.vo;
 
+/**
+ * Classe que representa a entidade ItemBebida.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class ItemBebidaVO{
 	
 	private int idItemBebida;
@@ -50,5 +56,4 @@ public class ItemBebidaVO{
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-	
 }

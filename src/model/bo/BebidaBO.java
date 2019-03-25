@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import model.dao.BebidaDAO;
 import model.vo.BebidaVO;
 
+/**
+ * Classe que representa as regras de negócio de Bebida.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class BebidaBO {
 
 	public void cadastrarBebidaBO(BebidaVO bebidaVO) {

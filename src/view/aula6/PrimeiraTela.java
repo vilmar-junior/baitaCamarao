@@ -16,8 +16,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+/**
+ * 
+ * @author Vilmar César Pereira Júnior
+ *
+ */
 public class PrimeiraTela {
-
+	//Atributos da tela: componentes
 	private JFrame frmPrimeiraTela;
 	private JTextField txtNome;
 

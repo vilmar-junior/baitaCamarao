@@ -8,7 +8,12 @@ import java.util.ArrayList;
 
 import model.vo.BebidaVO;
 
-
+/**
+ * Classe que permite o acesso à tabela Bebida.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class BebidaDAO {
 
 	public boolean existeRegistroPorNome(String nome) {
@@ -153,7 +158,4 @@ public class BebidaDAO {
 		}
 		return resultado;
 	}
-
-
-
 }

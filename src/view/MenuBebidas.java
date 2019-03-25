@@ -5,6 +5,13 @@ import java.util.Scanner;
 import controller.ControladoraBebida;
 import model.vo.BebidaVO;
 
+
+/**
+ * Classe que representa um menu de bebidas.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class MenuBebidas {
 	
 	Scanner teclado = new Scanner(System.in);
@@ -133,5 +140,4 @@ public class MenuBebidas {
 		ControladoraBebida controladoraBebida = new ControladoraBebida();
 		controladoraBebida.excluirBebidaController(bebidaVO);
 	}
-
 }

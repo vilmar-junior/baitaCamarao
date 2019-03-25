@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import model.dao.PratoDAO;
 import model.vo.PratoVO;
 
+/**
+ * Classe que representa as regras de negócio de Prato.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class PratoBO {
 
 	public void cadastrarPratoBO(PratoVO pratoVO) {

@@ -7,6 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import model.vo.PratoVO;
 
+/**
+ * Classe que permite o acesso à tabela Prato.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class PratoDAO {
 
 	public boolean existeRegistroPorNome(String nome) {
@@ -151,5 +157,4 @@ public class PratoDAO {
 		}
 		return resultado;
 	}
-
 }

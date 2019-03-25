@@ -8,7 +8,12 @@ import model.vo.ItemBebidaVO;
 import model.vo.ItemPratoVO;
 import model.vo.VendaVO;
 
-
+/**
+ * Classe que representa um menu de vendas.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class MenuVenda {
 	
 	Scanner teclado = new Scanner(System.in);

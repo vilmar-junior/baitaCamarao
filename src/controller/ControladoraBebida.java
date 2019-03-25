@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import model.bo.BebidaBO;
 import model.vo.BebidaVO;
 
+/**
+ * Classe que representa um controller de bebidas.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class ControladoraBebida {
 
 	public void cadastrarBebidaController(BebidaVO bebidaVO) {
@@ -30,5 +36,4 @@ public class ControladoraBebida {
 		BebidaBO bebidaBO = new BebidaBO();
 		bebidaBO.excluirBebidaBO(bebidaVO);
 	}
-
 }

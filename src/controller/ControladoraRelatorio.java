@@ -6,6 +6,12 @@ import model.bo.RelatorioBO;
 import model.dto.ProdutoDTO;
 import model.dto.VendaDTO;
 
+/**
+ * Classe que representa um controller de relatórios.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class ControladoraRelatorio {
 
 	public ArrayList<ProdutoDTO> gerarRelatorioProdutosController() {
@@ -27,5 +33,4 @@ public class ControladoraRelatorio {
 		RelatorioBO relatorioBO = new RelatorioBO();
 		return relatorioBO.gerarRelatorioVendaEspecifica(idVenda);
 	}
-
 }

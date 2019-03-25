@@ -6,7 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+/**
+ * Classe que permite a um determinado banco de dados,
+ * via conector JDBC.
+ * 
+ * @author Adriano de Melo
+ * 		   Vilmar César Pereira Júnior
+ *
+ */
 public class Banco {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";

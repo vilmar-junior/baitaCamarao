@@ -1,5 +1,12 @@
 package model.dto;
 
+/**
+ * Classe que representa um objeto de transfêrencia de dados 
+ * (Data Transfer Object - DTO) de Venda.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class VendaDTO {
 	
 	private String tipo;
@@ -69,5 +76,4 @@ public class VendaDTO {
 				this.getQuantidade(), 
 				this.getSubtotal());
 	}
-	
 }

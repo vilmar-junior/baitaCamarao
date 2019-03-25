@@ -3,6 +3,12 @@ package model.vo;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Classe que representa a entidade Venda.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class VendaVO {
 	
 	private int idVenda;
@@ -74,5 +80,4 @@ public class VendaVO {
 	public void setFlagVendaCancelada(boolean flagVendaCancelada) {
 		this.flagVendaCancelada = flagVendaCancelada;
 	}
-	
 }

@@ -67,7 +67,6 @@ public class SobremesaBO {
 	}
 	
 	public SobremesaVO consultarSobremesaPorNome(String nome) {
-		
 		//TODO incluir validação do parâmetro nome
 		SobremesaDAO dao = new SobremesaDAO();
 		return dao.consultarSobremesaPorNome(nome);

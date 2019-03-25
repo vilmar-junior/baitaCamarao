@@ -2,10 +2,18 @@ package view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import controller.ControladoraRelatorio;
 import model.dto.ProdutoDTO;
 import model.dto.VendaDTO;
 
+
+/**
+ * Classe que representa um menu de relatórios.
+ * 
+ * @author Adriano de Melo
+ *
+ */
 public class MenuRelatorio {
 
 	Scanner teclado = new Scanner(System.in);
