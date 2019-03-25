@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 import model.vo.SobremesaVO;
 
@@ -14,6 +15,7 @@ import model.vo.SobremesaVO;
 public class MenuSobremesa {
 
 	public void apresentarMenuSobremesa() {
+		
 		String nomeInformado = JOptionPane.showInputDialog("Informe o nome:");
 
 		double preco = obterPreco();
