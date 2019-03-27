@@ -31,7 +31,7 @@ public class VendaDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query que verifica existência de Venda.");
+			System.out.println("Erro ao executar a Query que verifica existência de Venda. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -54,7 +54,7 @@ public class VendaDAO {
 				retorno = resultado.getInt(1);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query de Cadastro da Venda.");
+			System.out.println("Erro ao executar a Query de Cadastro da Venda. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
@@ -87,7 +87,7 @@ public class VendaDAO {
 				System.out.println("Nem todos os pratos do pedido foram cadastrados!");
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query de Cadastro do Item Prato.");
+			
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
@@ -120,7 +120,7 @@ public class VendaDAO {
 				System.out.println("Nem todos os pratos do pedido foram cadastrados!");
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query de Cadastro do Item Bebida.");
+			System.out.println("Erro ao executar a Query de Cadastro do Item Bebida. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
@@ -139,7 +139,7 @@ public class VendaDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query que verifica existência de Venda por ID.");
+			System.out.println("Erro ao executar a Query que verifica existência de Venda por ID. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -156,7 +156,7 @@ public class VendaDAO {
 		try {
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query que cancela a Venda.");
+			System.out.println("Erro ao executar a Query que cancela a Venda. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);

@@ -129,7 +129,7 @@ public class SobremesaDAO {
 				sobremesas.add(sobremesaVO);
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Consulta de Sobremesas por tipo.");
+			System.out.println("Erro ao executar a Query de Consulta de Sobremesas por tipo. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -155,7 +155,7 @@ public class SobremesaDAO {
 				sobremesa.setLight(resultado.getBoolean(4));
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Consulta de Sobremesa por id.");
+			System.out.println("Erro ao executar a Query de Consulta de Sobremesa por id. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -209,7 +209,7 @@ public class SobremesaDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query que verifica existência de Registro por Id.");
+			System.out.println("Erro ao executar a Query que verifica existência de Registro por Id. Causa: " + e.getMessage());
 			return false;
 		} finally {
 			Banco.closeResultSet(resultado);
@@ -246,7 +246,7 @@ public class SobremesaDAO {
 		try{
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Exclusão do Sobremesa.");
+			System.out.println("Erro ao executar a Query de Exclusão do Sobremesa. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);

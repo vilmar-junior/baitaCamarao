@@ -26,7 +26,7 @@ public class PratoDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query que verifica existência de Prato por Nome.");
+			System.out.println("Erro ao executar a Query que verifica existência de Prato por Nome. Causa:" + e.getMessage());
 			return false;
 		} finally {
 			Banco.closeResultSet(resultado);
@@ -45,7 +45,7 @@ public class PratoDAO {
 		try {
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query de Cadastro do Prato.");
+			System.out.println("Erro ao executar a Query de Cadastro do Prato. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
@@ -69,7 +69,7 @@ public class PratoDAO {
 				pratosVO.add(pratoVO);
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Consulta de Pratos.");
+			System.out.println("Erro ao executar a Query de Consulta de Pratos. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -94,7 +94,7 @@ public class PratoDAO {
 				prato.setPreco(Double.parseDouble(resultado.getString(3)));
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Consulta de Prato.");
+			System.out.println("Erro ao executar a Query de Consulta de Prato. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -114,7 +114,7 @@ public class PratoDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query que verifica existência de Registro por Id.");
+			System.out.println("Erro ao executar a Query que verifica existência de Registro por Id. Causa:" + e.getMessage());
 			return false;
 		} finally {
 			Banco.closeResultSet(resultado);
@@ -134,7 +134,7 @@ public class PratoDAO {
 		try {
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query de Atualização do Prato.");
+			System.out.println("Erro ao executar a Query de Atualização do Prato. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
@@ -150,7 +150,7 @@ public class PratoDAO {
 		try{
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Exclusão do Prato.");
+			System.out.println("Erro ao executar a Query de Exclusão do Prato. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);

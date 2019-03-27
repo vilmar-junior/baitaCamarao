@@ -27,7 +27,7 @@ public class BebidaDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query que verifica existência de Bebida por Nome.");
+			System.out.println("Erro ao executar a Query que verifica existência de Bebida por Nome. Causa: " + e.getMessage());
 			return false;
 		} finally {
 			Banco.closeResultSet(resultado);
@@ -46,7 +46,7 @@ public class BebidaDAO {
 		try {
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query de Cadastro da Bebida.");
+			System.out.println("Erro ao executar a Query de Cadastro da Bebida. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
@@ -70,7 +70,7 @@ public class BebidaDAO {
 				bebidasVO.add(bebidaVO);
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Consulta de Bebidas.");
+			System.out.println("Erro ao executar a Query de Consulta de Bebidas. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -95,7 +95,7 @@ public class BebidaDAO {
 				bebida.setPreco(Double.parseDouble(resultado.getString(3)));
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Consulta de Bebida.");
+			System.out.println("Erro ao executar a Query de Consulta de Bebida. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -115,7 +115,7 @@ public class BebidaDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query que verifica existência de Registro por Id.");
+			System.out.println("Erro ao executar a Query que verifica existência de Registro por Id. Causa:" + e.getMessage());
 			return false;
 		} finally {
 			Banco.closeResultSet(resultado);
@@ -135,7 +135,7 @@ public class BebidaDAO {
 		try {
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar a Query de Atualização da Bebida.");
+			System.out.println("Erro ao executar a Query de Atualização da Bebida. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
@@ -151,7 +151,7 @@ public class BebidaDAO {
 		try{
 			resultado = stmt.executeUpdate(query);
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Exclusão da Bebida.");
+			System.out.println("Erro ao executar a Query de Exclusão da Bebida. Causa:" + e.getMessage());
 		} finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);

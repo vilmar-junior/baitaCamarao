@@ -35,7 +35,7 @@ public class RelatorioDAO {
 				listaProdutosDTO.add(produtoDTO);
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Consulta de Produtos.");
+			System.out.println("Erro ao executar a Query de Consulta de Produtos. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -75,7 +75,7 @@ public class RelatorioDAO {
 				listaVendasDTO.add(vendaDTO);
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Relatório de Vendas Canceladas.");
+			System.out.println("Erro ao executar a Query de Relatório de Vendas Canceladas. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -115,7 +115,7 @@ public class RelatorioDAO {
 				listaVendasDTO.add(vendaDTO);
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Relatório de Vendas Realizadas.");
+			System.out.println("Erro ao executar a Query de Relatório de Vendas Realizadas. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
@@ -157,7 +157,7 @@ public class RelatorioDAO {
 				listaVendasDTO.add(vendaDTO);
 			}
 		} catch (SQLException e){
-			System.out.println("Erro ao executar a Query de Relatório de Venda Específica.");
+			System.out.println("Erro ao executar a Query de Relatório de Venda Específica. Causa: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
