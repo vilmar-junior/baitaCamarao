@@ -140,9 +140,11 @@ public class CadastroUsuarioGUI {
 				//TODO
 				//1 - Ler os valores digitados nos campos da tela
 				
-				//2 - Chamar o método salvar(...) de UsuarioController, passando os valores digitados
+				//2 - Chamar o método salvar(...) de UsuarioController, 
+				//passando os valores digitados
 				
-				//3 - Mostrar a mensagem devolvida por UsuarioController na tela, por exemplo com JOptionPane
+				//3 - Mostrar a mensagem devolvida por UsuarioController na tela, 
+				//por exemplo com JOptionPane
 			}
 		});
 		button.setBounds(20, 155, 160, 35);
