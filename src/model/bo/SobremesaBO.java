@@ -1,5 +1,7 @@
 package model.bo;
 
+import java.util.ArrayList;
+
 import model.dao.SobremesaDAO;
 import model.vo.SobremesaVO;
 
@@ -70,5 +72,10 @@ public class SobremesaBO {
 		//TODO incluir validação do parâmetro nome
 		SobremesaDAO dao = new SobremesaDAO();
 		return dao.consultarSobremesaPorNome(nome);
+	}
+	
+	public ArrayList<SobremesaVO> consultarTodas(){
+		SobremesaDAO dao = new SobremesaDAO();
+		return dao.consultarTodas(); 
 	}
 }

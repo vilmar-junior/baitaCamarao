@@ -79,7 +79,7 @@ public class SobremesaDAO {
 		return resultado;
 	}
 
-	public ArrayList<SobremesaVO> consultarTodos() {
+	public ArrayList<SobremesaVO> consultarTodas() {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;

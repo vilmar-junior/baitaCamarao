@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.bo.SobremesaBO;
 import model.vo.SobremesaVO;
 
@@ -74,6 +76,10 @@ public class ControladoraSobremesa {
 		return bo.consultarSobremesaPorNome(nome);
 	}
 	
+	public ArrayList<SobremesaVO> consultarTodasAsSobremesas() {
+		SobremesaBO bo = new SobremesaBO();
+		return bo.consultarTodas();
+	}
 	
 	private String validarCampos(String nome, String preco) {
 		String mensagem = "";
