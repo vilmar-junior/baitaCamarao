@@ -238,6 +238,11 @@ public class SobremesaDAO {
 		return resultado;
 	}
 
+	/**
+	 * Exclui uma sobremesa.
+	 * @param sobremesaVO
+	 * @return 1 caso sucesso na exclusão, 0 caso contrário.
+	 */
 	public int excluirSobremesa(SobremesaVO sobremesaVO) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);

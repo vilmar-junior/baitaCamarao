@@ -5,6 +5,8 @@ public class Usuario {
 	private int id;
 	private String nome;
 	
+	private Nivel nivel;
+	
 	public Usuario(int id, String nome) {
 		super();
 		this.id = id;

@@ -20,7 +20,6 @@ public class SobremesaVO extends PratoVO {
 
 	@Override
 	public String toString() {
-		return "SobremesaVO [IdPrato=" + getId() + ", Nome=" + getNome()
-				+ ", Preco=" + getPreco() + ",light=" + light + "]";
+		return this.getNome() + " (" + (this.isLight() ? "Light" : "Não é light") + ")";
 	}
 }

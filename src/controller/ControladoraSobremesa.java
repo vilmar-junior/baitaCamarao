@@ -109,4 +109,23 @@ public class ControladoraSobremesa {
 		}
 		return stringPrecoEstaCorreta;
 	}
+	/**
+	 * Pede para o BO excluir uma sobremesa
+	 * @param sobremesa a sobremesa a ser excluída.
+	 * @return mensagem informando se foi excluída ou não
+	 */
+	public String excluir(SobremesaVO sobremesa) {
+		
+		String mensagem = "";
+		if(sobremesa == null) {
+			mensagem = "Selecione uma sobremesa";
+		}
+		
+		if(mensagem.isEmpty()) {
+			SobremesaBO bo = new SobremesaBO();
+			mensagem = bo.excluir(sobremesa);
+		}
+		
+		return mensagem;
+	}
 }

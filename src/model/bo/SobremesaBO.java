@@ -2,6 +2,7 @@ package model.bo;
 
 import java.util.ArrayList;
 
+import model.dao.Banco;
 import model.dao.SobremesaDAO;
 import model.vo.SobremesaVO;
 
@@ -77,5 +78,20 @@ public class SobremesaBO {
 	public ArrayList<SobremesaVO> consultarTodas(){
 		SobremesaDAO dao = new SobremesaDAO();
 		return dao.consultarTodas(); 
+	}
+
+	public String excluir(SobremesaVO sobremesa) {
+		String mensagem = "";
+		
+		SobremesaDAO dao = new SobremesaDAO();
+		int codigoRetorno = dao.excluirSobremesa(sobremesa);
+		
+		if(codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO_EXCLUSAO) {
+			mensagem = "Sobremesa " + sobremesa.toString() + " excluída com sucesso.";
+		}else {
+			mensagem = "Erro ao excluir sobremesa";
+		}
+		
+		return mensagem;
 	}
 }
