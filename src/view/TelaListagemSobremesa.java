@@ -92,6 +92,10 @@ public class TelaListagemSobremesa {
 		//Limpa a tabela
 		limparTabela();
 		
+		double d =0.0;
+		String valorFormatado = String.valueOf(d);
+		valorFormatado = "R$" + valorFormatado.replace(".", ",");
+		
 		//Obtém o model da tabela
 		DefaultTableModel model = (DefaultTableModel) tblSobremesas.getModel();
 		

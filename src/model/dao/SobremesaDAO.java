@@ -65,7 +65,8 @@ public class SobremesaDAO {
 		}
 		
 		int resultado = 0;
-		String query = "INSERT INTO sobremesa (nome, preco, light) VALUES ('" + sobremesa.getNome() 
+		String query = "INSERT INTO sobremesa (nome, preco, light) "
+				+ "VALUES ('" + sobremesa.getNome() 
 		+ "', " + sobremesa.getPreco() 
 		+ "," + intLight + ")";
 		try {

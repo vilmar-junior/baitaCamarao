@@ -139,14 +139,10 @@ public class ListagemUsuarioGUI {
 		tblUsuarios.setVisible(true);
 
 		//Cria a tabela vazia apenas com as colunas
-		tblUsuarios.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"id", "Nome"},
-			},
-			new String[] {
-				"id", "Nome"
-			}
-		));
+		
+		Object[][] data = new Object[][] {{"id", "Nome", "senha"},};
+		Object[] columnNames = new String[] {"id", "Nome", "senha"};
+		tblUsuarios.setModel(new DefaultTableModel(data,columnNames));
 
 		tblUsuarios.setBounds(70, 120, 480, 230);
 		frmCadastroDeUsuarios.getContentPane().add(tblUsuarios);

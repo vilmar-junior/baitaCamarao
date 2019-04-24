@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.EventQueue;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -24,7 +26,7 @@ import controller.ControladoraSobremesa;
  */
 public class TelaCadastroSobremesa extends JFrame {
 
-	//Atributos da tela: componentes 'leves' ('lightweight')
+	// Atributos da tela: componentes 'leves' ('lightweight')
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtPreco;
@@ -53,44 +55,52 @@ public class TelaCadastroSobremesa extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNome.setBounds(10, 40, 69, 14);
 		contentPane.add(lblNome);
-		
+
 		JLabel lblPreco = new JLabel("Preço. R$");
 		lblPreco.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPreco.setBounds(10, 65, 69, 14);
 		contentPane.add(lblPreco);
-		
+
 		txtNome = new JTextField();
+		txtNome.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent event) {
+				if (event.getKeyCode() == KeyEvent.VK_C) {
+					JOptionPane.showMessageDialog(null, "Errou!!");
+				}
+			}
+		});
 		txtNome.setBounds(85, 37, 165, 20);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
-		
+
 		txtPreco = new JTextField();
 		txtPreco.setToolTipText("Informe um valor separado com vírgula");
 		txtPreco.setBounds(85, 62, 165, 20);
 		contentPane.add(txtPreco);
 		txtPreco.setColumns(10);
-		
+
 		final JCheckBox checkLight = new JCheckBox("Light");
 		checkLight.setBounds(85, 89, 97, 23);
 		contentPane.add(checkLight);
-		
+
 		JButton btnSalvar = new JButton("Salvar");
-		
-		//Listener (ouvinte) de ação de mouse sobre o botão "Salvar"
+
+		// Listener (ouvinte) de ação de mouse sobre o botão "Salvar"
 		btnSalvar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
 				ControladoraSobremesa controller = new ControladoraSobremesa();
-				String mensagemRetorno = controller.salvar(txtNome.getText(), 
-						txtPreco.getText(), checkLight.isSelected());
-				
+				String mensagemRetorno = controller.salvar(txtNome.getText(), txtPreco.getText(),
+						checkLight.isSelected());
+
 				JOptionPane.showMessageDialog(null, mensagemRetorno);
-				
+
 			}
 		});
 		btnSalvar.setBounds(85, 129, 89, 23);
