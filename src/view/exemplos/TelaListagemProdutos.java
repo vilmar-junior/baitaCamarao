@@ -8,24 +8,22 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.github.lgooddatepicker.components.DatePicker;
-import com.github.lgooddatepicker.components.DateTimePicker;
 
 import controller.exemplos.ProdutoController;
 import model.seletor.exemplos.ProdutoSeletor;
 import model.vo.exemplos.Produto;
-import javax.swing.JTextField;
 
 public class TelaListagemProdutos extends JFrame {
 
@@ -43,12 +41,16 @@ public class TelaListagemProdutos extends JFrame {
 	private JComboBox cbCor;
 	private DatePicker dtInicioCadastro;
 	private DatePicker dtFimCadastro;
+	private int paginaAtual = 1;
 
-	//Esta lista de produtos é atualizada a cada nova consulta realizada com os filtros.
-	//Será a lista usada para gerar os relatórios
+	// Esta lista de produtos é atualizada a cada nova consulta realizada com os
+	// filtros.
+	// Será a lista usada para gerar os relatórios
 	private List<Produto> produtosConsultados;
 	private JTextField txtNome;
 	private JTextField txtPeso;
+	private JLabel lblPaginaAtual;
+
 	/**
 	 * Launch the application.
 	 */
@@ -67,12 +69,13 @@ public class TelaListagemProdutos extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param cbCor 
+	 * 
+	 * @param cbCor
 	 */
 	public TelaListagemProdutos() {
 		setTitle("Consulta de Produtos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 480, 470);
+		setBounds(100, 100, 480, 530);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -83,8 +86,8 @@ public class TelaListagemProdutos extends JFrame {
 		btnConsultar.setBounds(160, 215, 150, 40);
 		contentPane.add(btnConsultar);
 
-		String[] cores = {"---Selecione---", TelaListagemProdutos.COR_AZUL, TelaListagemProdutos.COR_AMARELO, 
-				TelaListagemProdutos.COR_PRETO,TelaListagemProdutos.COR_VERDE, TelaListagemProdutos.COR_VERMELHO };
+		String[] cores = { "---Selecione---", TelaListagemProdutos.COR_AZUL, TelaListagemProdutos.COR_AMARELO,
+				TelaListagemProdutos.COR_PRETO, TelaListagemProdutos.COR_VERDE, TelaListagemProdutos.COR_VERMELHO };
 
 		JLabel lblFiltroNome = new JLabel("Nome:");
 		lblFiltroNome.setBounds(10, 40, 50, 15);
@@ -112,14 +115,8 @@ public class TelaListagemProdutos extends JFrame {
 		contentPane.add(table);
 
 		tblProdutos = new JTable();
-		tblProdutos.setModel(new DefaultTableModel(
-				new String[][] {
-					{"Nome", "Marca", "Peso", "Dt. Cadastro"},
-				},
-				new String[] {
-						"Nome", "Marca", "Peso", "Dt. Cadastro"
-				}
-				));
+		tblProdutos.setModel(new DefaultTableModel(new String[][] { { "#", "Nome", "Marca", "Peso", "Dt. Cadastro" }, },
+				new String[] { "#", "Nome", "Marca", "Peso", "Dt. Cadastro" }));
 		tblProdutos.setBounds(10, 259, 462, 174);
 		contentPane.add(tblProdutos);
 
@@ -135,7 +132,7 @@ public class TelaListagemProdutos extends JFrame {
 		btnGerarXls = new JButton("Gerar XLS");
 		btnGerarXls.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				// TODO
 			}
 		});
 		btnGerarXls.setBounds(100, 404, 117, 29);
@@ -182,65 +179,94 @@ public class TelaListagemProdutos extends JFrame {
 		contentPane.add(txtPeso);
 		txtPeso.setColumns(10);
 
+		JButton btnAnterior = new JButton(" < Anterior");
+		btnAnterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (paginaAtual > 1) {
+					paginaAtual--;
+				}
+				consultarProdutos();
+			}
+		});
+		btnAnterior.setBounds(80, 457, 110, 23);
+		contentPane.add(btnAnterior);
+
+		JButton btnProximo = new JButton("Próximo >");
+		btnProximo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paginaAtual++;
+				consultarProdutos();
+			}
+		});
+		btnProximo.setBounds(258, 457, 107, 23);
+		contentPane.add(btnProximo);
+
+		lblPaginaAtual = new JLabel("");
+		lblPaginaAtual.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPaginaAtual.setBounds(194, 461, 54, 14);
+		lblPaginaAtual.setText(paginaAtual + "");
+		contentPane.add(lblPaginaAtual);
+
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ProdutoController controlador = new ProdutoController();
-				ProdutoSeletor seletor = new ProdutoSeletor();
-
-				//Preenche os campos de filtro da tela no seletor
-				if(cbCor.getSelectedIndex() > -1) {
-					seletor.setCorProduto(cbCor.getSelectedItem().toString());
-				}
-				
-				seletor.setNomeProduto(txtNome.getText());
-				
-				if(txtPeso.getText() != null && !txtPeso.getText().isEmpty()) {
-					seletor.setPesoProduto(Double.parseDouble(txtPeso.getText()));	
-				}else {
-					seletor.setPesoProduto(-1.0);
-				}
-		
-				seletor.setDataInicioCadastro(dtInicioCadastro.getDate());
-				seletor.setDataFimCadastro(dtFimCadastro.getDate());
-
-				List<Produto> produtos = controlador.listarProdutos(seletor);
-				atualizarTabelaProdutos(produtos);
-
+				consultarProdutos();
 			}
 		});
 	}
 
+	protected void consultarProdutos() {
+		lblPaginaAtual.setText(paginaAtual + "");
+
+		ProdutoController controlador = new ProdutoController();
+		ProdutoSeletor seletor = new ProdutoSeletor();
+
+		seletor.setPagina(paginaAtual);
+		seletor.setLimite(5);
+
+		// Preenche os campos de filtro da tela no seletor
+		if (cbCor.getSelectedIndex() > 0) {
+			seletor.setCorProduto(cbCor.getSelectedItem().toString());
+		}
+
+		seletor.setNomeProduto(txtNome.getText());
+
+		if (txtPeso.getText() != null && !txtPeso.getText().isEmpty()) {
+			seletor.setPesoProduto(Double.parseDouble(txtPeso.getText()));
+		} else {
+			seletor.setPesoProduto(-1.0);
+		}
+
+		seletor.setDataInicioCadastro(dtInicioCadastro.getDate());
+		seletor.setDataFimCadastro(dtFimCadastro.getDate());
+
+		List<Produto> produtos = controlador.listarProdutos(seletor);
+		atualizarTabelaProdutos(produtos);
+
+	}
+
 	protected void atualizarTabelaProdutos(List<Produto> produtos) {
-		//atualiza o atributo produtosConsultados
+		// atualiza o atributo produtosConsultados
 		produtosConsultados = produtos;
 
-		btnGerarXls.setEnabled(produtos != null && produtos.size() > 0);
-		btnGerarPdf.setEnabled(produtos != null && produtos.size() > 0);
+		// TODO descomentar quando chegarmos em relatórios
+		// btnGerarXls.setEnabled(produtos != null && produtos.size() > 0);
+		// btnGerarPdf.setEnabled(produtos != null && produtos.size() > 0);
 
-		//Limpa a tabela
-		tblProdutos.setModel(new DefaultTableModel(
-				new String[][] {
-					{"Nome", "Marca", "Peso", "Dt. Cadastro"},
-				},
-				new String[] {
-						"Nome", "Marca", "Peso", "Dt. Cadastro"
-				}));
+		// Limpa a tabela
+		tblProdutos.setModel(new DefaultTableModel(new String[][] { { "#", "Nome", "Marca", "Peso", "Dt. Cadastro" }, },
+				new String[] { "#", "Nome", "Marca", "Peso", "Dt. Cadastro" }));
 
 		DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
 
-		for(Produto produto: produtos) {
-			//Crio uma nova linha na tabela
-			//Preencher a linha com os atributos do produto
-			//na ORDEM do cabeçalho da tabela
+		for (Produto produto : produtos) {
+			// Crio uma nova linha na tabela
+			// Preencher a linha com os atributos do produto
+			// na ORDEM do cabeçalho da tabela
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			String dataFormatada = produto.getDataCadastro().format(formatter);
-			
-			String[] novaLinha = new String[] {
-					produto.getNome(),
-					produto.getFabricante(),
-					produto.getPeso() + "",
-					dataFormatada
-			};
+
+			String[] novaLinha = new String[] { produto.getId() + "", produto.getNome(), produto.getFabricante(),
+					produto.getPeso() + "", dataFormatada };
 			modelo.addRow(novaLinha);
 		}
 

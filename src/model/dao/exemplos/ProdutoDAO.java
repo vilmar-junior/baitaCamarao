@@ -1,7 +1,6 @@
 package model.dao.exemplos;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -121,8 +120,7 @@ public class ProdutoDAO {
 		}
 		return produtos;
 	}
-	
-	
+
 	private Produto construirProdutoDoResultSet(ResultSet result) {
 		Produto p = new Produto();
 
@@ -142,18 +140,18 @@ public class ProdutoDAO {
 
 	public ArrayList<Produto> listarComSeletor(ProdutoSeletor seletor) {
 		String sql = " SELECT * FROM PRODUTO p";
-		
-		if(seletor.temFiltro()) {
+
+		if (seletor.temFiltro()) {
 			sql = criarFiltros(seletor, sql);
 		}
 
+		if (seletor.temPaginacao()) {
+			// TODO continuar...
+			sql += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+		}
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 		ArrayList<Produto> produtos = new ArrayList<Produto>();
-		
-		if(seletor.temPaginacao()) {
-			//TODO continuar...
-		}
 
 		try {
 			ResultSet result = prepStmt.executeQuery();
@@ -166,84 +164,85 @@ public class ProdutoDAO {
 			e.printStackTrace();
 		}
 		return produtos;
-		
+
 	}
-	
+
 	/**
-	 * Cria os filtros de consulta (cláusulas WHERE/AND) de acordo com o que 
-	 * foi preeenchido no seletor.
+	 * Cria os filtros de consulta (cláusulas WHERE/AND) de acordo com o que foi
+	 * preeenchido no seletor.
 	 * 
-	 * ATENÇÃO: a ordem de criação dos filtros e posterior preenchimentos é relevante,
-	 * logo este método é intimamente ligado ao método preencherParametrosConsulta
-	 *  
+	 * ATENÇÃO: a ordem de criação dos filtros e posterior preenchimentos é
+	 * relevante, logo este método é intimamente ligado ao método
+	 * preencherParametrosConsulta
+	 * 
 	 * @param seletor o seletor de produtos
-	 * @param jpql a consulta que será preenchida
+	 * @param jpql    a consulta que será preenchida
 	 */
 	private String criarFiltros(ProdutoSeletor seletor, String sql) {
-		
-		//Tem pelo menos UM filtro
-		sql+= " WHERE ";
+
+		// Tem pelo menos UM filtro
+		sql += " WHERE ";
 		boolean primeiro = true;
-		
+
 		if (seletor.getIdProduto() > 0) {
 			if (!primeiro) {
-				sql+= " AND ";
+				sql += " AND ";
 			}
-			sql+= "p.id = " + seletor.getIdProduto();
+			sql += "p.id = " + seletor.getIdProduto();
 			primeiro = false;
 		}
 
 		if ((seletor.getNomeProduto() != null) && (seletor.getNomeProduto().trim().length() > 0)) {
 			if (!primeiro) {
-				sql+= " AND ";
+				sql += " AND ";
 			}
 			sql += "p.nome LIKE '%" + seletor.getNomeProduto() + "%'";
 			primeiro = false;
 		}
-		
+
 		if ((seletor.getCorProduto() != null) && (seletor.getCorProduto().trim().length() > 0)) {
 			if (!primeiro) {
-				sql+= " AND ";
+				sql += " AND ";
 			}
 			sql += "p.cor = '" + seletor.getCorProduto() + "'";
 			primeiro = false;
 		}
-		
+
 		if (seletor.getPesoProduto() > 0) {
 			if (!primeiro) {
-				sql+= " AND ";
+				sql += " AND ";
 			}
 			sql += "p.peso = " + seletor.getPesoProduto();
 			primeiro = false;
 		}
-		
-		if ((seletor.getDataInicioCadastro() != null) && (seletor.getDataFimCadastro() != null)) {
-			//Regra composta, olha as 3 opções de preenchimento do período
 
-			//Todo o período preenchido (início E fim)
+		if ((seletor.getDataInicioCadastro() != null) && (seletor.getDataFimCadastro() != null)) {
+			// Regra composta, olha as 3 opções de preenchimento do período
+
+			// Todo o período preenchido (início E fim)
 			if (!primeiro) {
-				sql+= " AND ";
+				sql += " AND ";
 			}
-			sql += "p.dataCadastro BETWEEN" + seletor.getDataInicioCadastro()  +  " AND " + seletor.getDataFimCadastro();
+			sql += "p.dataCadastro BETWEEN" + seletor.getDataInicioCadastro() + " AND " + seletor.getDataFimCadastro();
 			primeiro = false;
 		} else if (seletor.getDataInicioCadastro() != null) {
-			//só o início
+			// só o início
 			if (!primeiro) {
-				sql+= " AND ";
+				sql += " AND ";
 			}
 			sql += "p.dataCadastro >= " + seletor.getDataInicioCadastro();
 			primeiro = false;
 		} else if (seletor.getDataFimCadastro() != null) {
-			//só o fim
+			// só o fim
 			if (!primeiro) {
-				sql+= " AND ";
+				sql += " AND ";
 			}
 			sql += "p.dataCadastro <= " + seletor.getDataFimCadastro();
 			primeiro = false;
 		}
-		
+
 		return sql;
-		
+
 	}
 
 	public ArrayList<Produto> listarTodos() {

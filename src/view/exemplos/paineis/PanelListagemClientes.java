@@ -10,6 +10,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import net.miginfocom.swing.MigLayout;
+
 public class PanelListagemClientes extends JPanel {
 	private JTextField txtNome;
 	private JTable tblResultados;
@@ -18,20 +20,17 @@ public class PanelListagemClientes extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelListagemClientes() {
-		setLayout(null);
+		setLayout(new MigLayout("", "[305px][15px][130px]", "[37.00px][250px,grow]"));
 
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(30, 30, 46, 25);
-		add(lblNome);
+		add(lblNome, "cell 0 0,alignx left,growy");
 
 		txtNome = new JTextField();
-		txtNome.setBounds(75, 30, 260, 25);
-		add(txtNome);
+		add(txtNome, "cell 0 0,grow");
 		txtNome.setColumns(10);
 
 		JButton btnFiltrar = new JButton("Filtrar");
-		btnFiltrar.setBounds(350, 30, 130, 25);
-		add(btnFiltrar);
+		add(btnFiltrar, "cell 2 0,grow");
 
 		tblResultados = new JTable();
 		tblResultados.addMouseListener(new MouseAdapter() {
@@ -43,7 +42,6 @@ public class PanelListagemClientes extends JPanel {
 		});
 		tblResultados
 				.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "#", "New column", "New column" }));
-		tblResultados.setBounds(30, 60, 450, 250);
-		add(tblResultados);
+		add(tblResultados, "cell 0 1 3 1,grow");
 	}
 }
