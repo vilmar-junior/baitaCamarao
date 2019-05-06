@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.exemplos.ProdutoDAO;
+import model.seletor.exemplos.ProdutoSeletor;
 import model.vo.exemplos.Produto;
 
 public class ProdutoBO {
@@ -35,17 +36,11 @@ public class ProdutoBO {
 		return produtos;
 	}
 
-	public void gerarRelatorio(List<Produto> produtos, String caminhoEscolhido, String tipoRelatorio) {
-
-	}
-
 	public void gerarPlanilha(List<Produto> produtos, String caminhoEscolhido) {
-		// GeradorPlanilha gerador = new GeradorPlanilha();
-		// gerador.gerarPlanilhaProdutos(produtos, caminhoEscolhido);
+		//TODO
 	}
 
-	public void gerarPDF(List<Produto> produtos, String caminhoEscolhido) {
-		// TODO Auto-generated method stub
-
+	public List<Produto> listarProdutos(ProdutoSeletor seletor) {
+		return dao.listarComSeletor(seletor);
 	}
 }

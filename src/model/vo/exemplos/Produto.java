@@ -1,5 +1,8 @@
 package model.vo.exemplos;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Produto {
 
 	private int id;
@@ -7,13 +10,15 @@ public class Produto {
 	private String fabricante;
 	private double valor;
 	private double peso;
+	private LocalDate dataCadastro;
 
-	public Produto(String nome, String fabricante, double valor, double peso) {
+	public Produto(String nome, String fabricante, double valor, double peso, LocalDate dataCadastro) {
 		super();
 		this.nome = nome;
 		this.fabricante = fabricante;
 		this.valor = valor;
 		this.peso = peso;
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Produto() {
@@ -62,5 +67,13 @@ public class Produto {
 	@Override
 	public String toString() {
 		return "Produto [id=" + id + ", nome=" + nome + ", fabricante=" + fabricante + "]";
+	}
+
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 }

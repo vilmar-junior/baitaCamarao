@@ -3,6 +3,7 @@ package controller.exemplos;
 import java.util.List;
 
 import model.bo.exemplos.ProdutoBO;
+import model.seletor.exemplos.ProdutoSeletor;
 import model.vo.exemplos.Produto;
 
 public class ProdutoController {
@@ -62,12 +63,12 @@ public class ProdutoController {
 	}
 
 	public void gerarRelatorio(List<Produto> produtos, String caminhoEscolhido, String tipoRelatorio) {
-
-		// TODO fazer mais validações? Quais?
 		if (tipoRelatorio.equals(TIPO_RELATORIO_XLS)) {
 			bo.gerarPlanilha(produtos, caminhoEscolhido);
-		} else {
-			bo.gerarPDF(produtos, caminhoEscolhido);
 		}
+	}
+
+	public List<Produto> listarProdutos(ProdutoSeletor seletor) {
+		return bo.listarProdutos(seletor);
 	}
 }
