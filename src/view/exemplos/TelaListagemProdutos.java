@@ -193,7 +193,13 @@ public class TelaListagemProdutos extends JFrame {
 				}
 				
 				seletor.setNomeProduto(txtNome.getText());
-				seletor.setPesoProduto(Double.parseDouble(txtPeso.getText()));
+				
+				if(txtPeso.getText() != null && !txtPeso.getText().isEmpty()) {
+					seletor.setPesoProduto(Double.parseDouble(txtPeso.getText()));	
+				}else {
+					seletor.setPesoProduto(-1.0);
+				}
+		
 				seletor.setDataInicioCadastro(dtInicioCadastro.getDate());
 				seletor.setDataFimCadastro(dtFimCadastro.getDate());
 

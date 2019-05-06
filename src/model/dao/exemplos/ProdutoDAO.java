@@ -131,10 +131,8 @@ public class ProdutoDAO {
 			p.setId(result.getInt("ID"));
 			p.setNome(result.getString("NOME"));
 			p.setFabricante(result.getString("FABRICANTE"));
-			
-			// Outra forma de obter (POSICIONAL)
-			p.setValor(result.getDouble(4));
-			p.setPeso(result.getDouble(5));
+			p.setValor(result.getDouble("VALOR"));
+			p.setPeso(result.getDouble("PESO"));
 			p.setDataCadastro(result.getDate("DATACADASTRO").toLocalDate());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -146,16 +144,12 @@ public class ProdutoDAO {
 		String sql = " SELECT * FROM PRODUTO p";
 		
 		if(seletor.temFiltro()) {
-			criarFiltros(seletor, sql);
+			sql = criarFiltros(seletor, sql);
 		}
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 		ArrayList<Produto> produtos = new ArrayList<Produto>();
-		
-		if(seletor.temFiltro()) {
-			preencherParametrosConsulta(prepStmt, seletor);
-		}
 		
 		if(seletor.temPaginacao()) {
 			//TODO continuar...
@@ -185,7 +179,7 @@ public class ProdutoDAO {
 	 * @param seletor o seletor de produtos
 	 * @param jpql a consulta que será preenchida
 	 */
-	private void criarFiltros(ProdutoSeletor seletor, String sql) {
+	private String criarFiltros(ProdutoSeletor seletor, String sql) {
 		
 		//Tem pelo menos UM filtro
 		sql+= " WHERE ";
@@ -195,7 +189,7 @@ public class ProdutoDAO {
 			if (!primeiro) {
 				sql+= " AND ";
 			}
-			sql+= "p.id = :idProduto";
+			sql+= "p.id = " + seletor.getIdProduto();
 			primeiro = false;
 		}
 
@@ -203,7 +197,7 @@ public class ProdutoDAO {
 			if (!primeiro) {
 				sql+= " AND ";
 			}
-			sql += "p.nome LIKE :nomeProduto";
+			sql += "p.nome LIKE '%" + seletor.getNomeProduto() + "%'";
 			primeiro = false;
 		}
 		
@@ -211,7 +205,7 @@ public class ProdutoDAO {
 			if (!primeiro) {
 				sql+= " AND ";
 			}
-			sql += "p.cor LIKE :corProduto";
+			sql += "p.cor = '" + seletor.getCorProduto() + "'";
 			primeiro = false;
 		}
 		
@@ -219,7 +213,7 @@ public class ProdutoDAO {
 			if (!primeiro) {
 				sql+= " AND ";
 			}
-			sql += "p.peso = :pesoProduto";
+			sql += "p.peso = " + seletor.getPesoProduto();
 			primeiro = false;
 		}
 		
@@ -230,80 +224,26 @@ public class ProdutoDAO {
 			if (!primeiro) {
 				sql+= " AND ";
 			}
-			sql += "p.dataCadastro BETWEEN :dataInicioCadastro AND :dataFimCadastro ";
+			sql += "p.dataCadastro BETWEEN" + seletor.getDataInicioCadastro()  +  " AND " + seletor.getDataFimCadastro();
 			primeiro = false;
 		} else if (seletor.getDataInicioCadastro() != null) {
 			//só o início
 			if (!primeiro) {
 				sql+= " AND ";
 			}
-			sql += "p.dataCadastro >= :dataInicioCadastro ";
+			sql += "p.dataCadastro >= " + seletor.getDataInicioCadastro();
 			primeiro = false;
 		} else if (seletor.getDataFimCadastro() != null) {
 			//só o fim
 			if (!primeiro) {
 				sql+= " AND ";
 			}
-			sql += "p.dataCadastro <= :dataFimCadastro ";
+			sql += "p.dataCadastro <= " + seletor.getDataFimCadastro();
 			primeiro = false;
 		}
 		
-	}
-
-	/**
-	 * Preenche os parâmetros da consulta, de acordo com os atributos do seletor
-	 * e os nomes definidos em criarFiltro (geralmente iguais aos dos atributos do seletor)
-	 * 
-	 * ATENÇÃO: a ordem de criação dos filtros e posterior preenchimentos é relevante,
-	 * logo este método é intimamente ligado ao método c
-	 *  
-	 * @param seletor o seletor de produtos
-	 * @param ps o preparedStatement da consulta que será preenchida
-	 */
-	private void preencherParametrosConsulta(PreparedStatement ps, ProdutoSeletor seletor) {
+		return sql;
 		
-		try {
-			int indiceParametro = 1;
-			if (seletor.getIdProduto() > 0) {
-				ps.setInt(indiceParametro, seletor.getIdProduto());
-				indiceParametro++;
-			}
-
-			if ((seletor.getNomeProduto() != null) && (seletor.getNomeProduto().trim().length() > 0)) {
-				ps.setString(indiceParametro, "%" + seletor.getNomeProduto() + "%");
-				indiceParametro++;
-			}
-			
-			if ((seletor.getCorProduto() != null) && (seletor.getCorProduto().trim().length() > 0)) {
-				ps.setString(indiceParametro, "%" + seletor.getCorProduto() + "%");
-				indiceParametro++;
-			}
-			
-			if ((seletor.getPesoProduto() != null) && (seletor.getPesoProduto() > 0)) {
-				ps.setDouble(indiceParametro, seletor.getPesoProduto());
-				indiceParametro++;
-			}
-			
-			if ((seletor.getDataInicioCadastro() != null) && (seletor.getDataFimCadastro() != null)) {
-				java.sql.Date dataInicioSql = Date.valueOf(seletor.getDataInicioCadastro());
-				ps.setDate(indiceParametro, dataInicioSql);
-				indiceParametro++;
-				
-				java.sql.Date dataFimSql = Date.valueOf(seletor.getDataFimCadastro());
-				ps.setDate(indiceParametro, dataFimSql);
-				indiceParametro++;
-			} else if (seletor.getDataInicioCadastro() != null) {
-				java.sql.Date dataInicioSql = Date.valueOf(seletor.getDataInicioCadastro());
-				ps.setDate(indiceParametro, dataInicioSql);
-				indiceParametro++;
-			} else if (seletor.getDataFimCadastro() != null) {
-				java.sql.Date dataFimSql = Date.valueOf(seletor.getDataFimCadastro());
-				ps.setDate(indiceParametro, dataFimSql);
-				indiceParametro++;
-			}
-		} catch (SQLException e) {
-			System.out.println("Erro ao preencher os parâmetros da consulta de produtos. Causa: " + e.getMessage());
-		}
 	}
 
 	public ArrayList<Produto> listarTodos() {
