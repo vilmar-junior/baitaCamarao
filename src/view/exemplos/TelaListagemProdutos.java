@@ -11,7 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -32,9 +31,9 @@ public class TelaListagemProdutos extends JFrame {
 	private static final String COR_PRETO = "Preto";
 	private static final String COR_VERDE = "Verde";
 	private static final String COR_VERMELHO = "Vermelho";
+	private static final int TAMANHO_PAGINA = 0;
 
 	private JPanel contentPane;
-	private JTable table;
 	private JTable tblProdutos;
 	private JButton btnGerarXls;
 	private JButton btnGerarPdf;
@@ -51,9 +50,6 @@ public class TelaListagemProdutos extends JFrame {
 	private JTextField txtPeso;
 	private JLabel lblPaginaAtual;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -94,25 +90,13 @@ public class TelaListagemProdutos extends JFrame {
 		contentPane.add(lblFiltroNome);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(20, 56, 404, -1);
+		separator.setBounds(10, 205, 462, 14);
 		contentPane.add(separator);
-
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 205, 462, 14);
-		contentPane.add(separator_1);
 
 		JLabel lblFiltrosDeConsulta = new JLabel("Filtros de consulta:");
 		lblFiltrosDeConsulta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFiltrosDeConsulta.setBounds(10, 11, 448, 14);
 		contentPane.add(lblFiltrosDeConsulta);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 194, 345, -100);
-		contentPane.add(scrollPane);
-
-		table = new JTable();
-		table.setBounds(30, 225, 246, -119);
-		contentPane.add(table);
 
 		tblProdutos = new JTable();
 		tblProdutos.setModel(new DefaultTableModel(new String[][] { { "#", "Nome", "Marca", "Peso", "Dt. Cadastro" }, },
@@ -221,7 +205,7 @@ public class TelaListagemProdutos extends JFrame {
 		ProdutoSeletor seletor = new ProdutoSeletor();
 
 		seletor.setPagina(paginaAtual);
-		seletor.setLimite(5);
+		seletor.setLimite(TAMANHO_PAGINA);
 
 		// Preenche os campos de filtro da tela no seletor
 		if (cbCor.getSelectedIndex() > 0) {
