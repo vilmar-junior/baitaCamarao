@@ -71,4 +71,7 @@ public class ProdutoController {
 	public List<Produto> listarProdutos(ProdutoSeletor seletor) {
 		return bo.listarProdutos(seletor);
 	}
+	public Integer totalComSeletor(ProdutoSeletor seletor) {
+		return bo.totalComSeletor(seletor);
+	}
 }

@@ -166,6 +166,29 @@ public class ProdutoDAO {
 		return produtos;
 
 	}
+	public Integer totalComSeletor(ProdutoSeletor seletor) {
+		String sql = " SELECT count(*) FROM PRODUTO p";
+
+		if (seletor.temFiltro()) {
+			sql = criarFiltros(seletor, sql);
+		}
+
+		
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+
+		try {
+			ResultSet result = prepStmt.executeQuery();
+
+			if (result.next()) {
+				return result.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+
+	}
 
 	/**
 	 * Cria os filtros de consulta (cláusulas WHERE/AND) de acordo com o que foi
