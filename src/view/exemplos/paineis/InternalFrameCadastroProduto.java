@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import controller.exemplos.ProdutoController;
 import model.bo.exemplos.ProdutoBO;
 import model.vo.exemplos.Produto;
 
@@ -34,6 +33,15 @@ public class InternalFrameCadastroProduto extends JInternalFrame {
 	private JTextField txtPeso;
 	private JComboBox cbValor;
 	private JTextField txtId;
+	private JButton btnSalvar;
+
+	public JButton getBtnSalvar() {
+		return btnSalvar;
+	}
+
+	public void setBtnSalvar(JButton btnSalvar) {
+		this.btnSalvar = btnSalvar;
+	}
 
 	/**
 	 * Launch the application.
@@ -55,6 +63,8 @@ public class InternalFrameCadastroProduto extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public InternalFrameCadastroProduto() {
+
+		setClosable(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 
@@ -96,23 +106,21 @@ public class InternalFrameCadastroProduto extends JInternalFrame {
 		cbValor.setBounds(75, 94, 249, 20);
 		getContentPane().add(cbValor);
 
-		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar = new JButton("Salvar");
 		btnSalvar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				ProdutoController controlador = new ProdutoController();
-				Produto produto = construirProduto();
-
-				String mensagem = controlador.salvar(produto);
-				JOptionPane.showMessageDialog(null, mensagem);
-				limparTela();
-			}
-
-		});
-		btnSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+				// Implementa a regra de negócio
+				JOptionPane.showMessageDialog(null, "Salvou produto");
+//				ProdutoController controlador = new ProdutoController();
+//				Produto produto = construirProduto();
+//
+//				String mensagem = controlador.salvar(produto);
+//				JOptionPane.showMessageDialog(null, mensagem);
+//				limparTela();
 			}
 		});
+
 		btnSalvar.setBounds(10, 183, 329, 46);
 		getContentPane().add(btnSalvar);
 
@@ -150,6 +158,7 @@ public class InternalFrameCadastroProduto extends JInternalFrame {
 		});
 		btnBuscar.setBounds(223, 7, 101, 23);
 		getContentPane().add(btnBuscar);
+
 	}
 
 	protected void limparTela() {
@@ -170,22 +179,21 @@ public class InternalFrameCadastroProduto extends JInternalFrame {
 			produto.setPeso(Double.parseDouble(strPeso));
 		}
 
-		switch (cbValor.getSelectedItem().toString()) {
-		case NOME_VALOR_BARATO:
-			produto.setValor(1.0);
-			break;
-		case NOME_VALOR_MEDIO:
-			produto.setValor(10.0);
-			break;
-		case NOME_VALOR_CARO:
-			produto.setValor(100.0);
-			break;
-
-		default:
-			produto.setValor(1.0);
-			break;
-		}
+//		switch (cbValor.getSelectedItem().toString()) {
+//		case NOME_VALOR_BARATO:
+//			produto.setValor(1.0);
+//			break;
+//		case NOME_VALOR_MEDIO:
+//			produto.setValor(10.0);
+//			break;
+//		case NOME_VALOR_CARO:
+//			produto.setValor(100.0);
+//			break;
+//
+//		default:
+//			produto.setValor(1.0);
+//			break;
+//		}
 		return produto;
 	}
-
 }

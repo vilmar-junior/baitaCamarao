@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -13,9 +15,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 import view.exemplos.paineis.InternalFrameCadastroProduto;
 import view.exemplos.paineis.PanelListagemClientes;
@@ -24,6 +29,10 @@ public class TelaPrincipalComMenu extends JFrame {
 
 	private JPanel contentPane;
 	private JDesktopPane desktopPane;
+
+	public void chamarPai() {
+
+	}
 
 	/**
 	 * Launch the application.
@@ -71,6 +80,22 @@ public class TelaPrincipalComMenu extends JFrame {
 				// Adiciona a tela de cadastro no painel principal (janela interna)
 				InternalFrameCadastroProduto telaCadastro = new InternalFrameCadastroProduto();
 				desktopPane.add(telaCadastro);
+
+				// Adiciona um ouvinte para executar código quando a telaCadastro for FECHADA
+				telaCadastro.addInternalFrameListener(new InternalFrameAdapter() {
+					@Override
+					public void internalFrameClosed(InternalFrameEvent arg0) {
+						JOptionPane.showMessageDialog(null, "Janela interna fechada. Eu sou o MENU");
+					}
+				});
+
+				telaCadastro.getBtnSalvar().addMouseListener(new MouseAdapter() {
+					// Controla a atualização dos registros nas telas
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						JOptionPane.showMessageDialog(null, "Salvou produto -> menu mostrando");
+					}
+				});
 
 				// Maximiza o novo frame
 				// desktopPane.getDesktopManager().maximizeFrame(telaCadastro);
