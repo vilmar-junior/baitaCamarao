@@ -31,7 +31,7 @@ public class TelaPrincipalComMenu extends JFrame {
 	private JDesktopPane desktopPane;
 
 	public void chamarPai() {
-
+		JOptionPane.showMessageDialog(null, "Olá, eu sou o pai das telas!");
 	}
 
 	/**
