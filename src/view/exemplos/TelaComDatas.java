@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.DateTimePicker;
 
 public class TelaComDatas {
@@ -51,7 +52,11 @@ public class TelaComDatas {
 		lblData.setBounds(10, 64, 40, 20);
 		frame.getContentPane().add(lblData);
 
-		final DateTimePicker dataTeste = new DateTimePicker();
+		// Configurações da parte de DATAS do componente
+		DatePickerSettings dateSettings = new DatePickerSettings();
+		dateSettings.setAllowKeyboardEditing(false);
+
+		final DateTimePicker dataTeste = new DateTimePicker(dateSettings, null);
 		dataTeste.setBounds(80, 60, 300, 30);
 		frame.getContentPane().add(dataTeste);
 
