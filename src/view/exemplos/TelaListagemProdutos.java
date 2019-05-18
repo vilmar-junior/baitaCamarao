@@ -31,7 +31,7 @@ public class TelaListagemProdutos extends JFrame {
 	private static final String COR_PRETO = "Preto";
 	private static final String COR_VERDE = "Verde";
 	private static final String COR_VERMELHO = "Vermelho";
-	private static final int TAMANHO_PAGINA = 0;
+	private static final int TAMANHO_PAGINA = 5;
 
 	private JPanel contentPane;
 	private JTable tblProdutos;
@@ -41,6 +41,10 @@ public class TelaListagemProdutos extends JFrame {
 	private DatePicker dtInicioCadastro;
 	private DatePicker dtFimCadastro;
 	private int paginaAtual = 1;
+	private boolean mostraAnterior;
+	private boolean mostraProximo;
+	private JButton btnAnterior ;
+	private JButton btnProximo;
 
 	// Esta lista de produtos é atualizada a cada nova consulta realizada com os
 	// filtros.
@@ -163,7 +167,7 @@ public class TelaListagemProdutos extends JFrame {
 		contentPane.add(txtPeso);
 		txtPeso.setColumns(10);
 
-		JButton btnAnterior = new JButton(" < Anterior");
+		btnAnterior = new JButton(" < Anterior");
 		btnAnterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (paginaAtual > 1) {
@@ -175,7 +179,7 @@ public class TelaListagemProdutos extends JFrame {
 		btnAnterior.setBounds(80, 457, 110, 23);
 		contentPane.add(btnAnterior);
 
-		JButton btnProximo = new JButton("Próximo >");
+		btnProximo = new JButton("Próximo >");
 		btnProximo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				paginaAtual++;
@@ -224,8 +228,27 @@ public class TelaListagemProdutos extends JFrame {
 		seletor.setDataFimCadastro(dtFimCadastro.getDate());
 
 		List<Produto> produtos = controlador.listarProdutos(seletor);
+		controlarPaginacao(controlador, seletor);
+		
+		
+		
 		atualizarTabelaProdutos(produtos);
+		
 
+	}
+
+	private void controlarPaginacao(ProdutoController controlador, ProdutoSeletor seletor) {
+		int total= controlador.totalComSeletor(seletor);
+		int quociente = total / TAMANHO_PAGINA;
+		int resto = total % TAMANHO_PAGINA;
+		int totalPaginas = quociente;
+		if(resto > 0) {
+			totalPaginas++;
+		}
+		mostraAnterior = paginaAtual > 1;
+		mostraProximo = paginaAtual < totalPaginas;
+		btnAnterior.setVisible(mostraAnterior);
+		btnProximo.setVisible(mostraProximo);
 	}
 
 	protected void atualizarTabelaProdutos(List<Produto> produtos) {
