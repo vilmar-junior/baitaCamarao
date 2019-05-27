@@ -8,8 +8,10 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -36,15 +38,10 @@ public class TelaListagemProdutos extends JFrame {
 	private JPanel contentPane;
 	private JTable tblProdutos;
 	private JButton btnGerarXls;
-	private JButton btnGerarPdf;
 	private JComboBox cbCor;
 	private DatePicker dtInicioCadastro;
 	private DatePicker dtFimCadastro;
 	private int paginaAtual = 1;
-
-	// Esta lista de produtos é atualizada a cada nova consulta realizada com os
-	// filtros.
-	// Será a lista usada para gerar os relatórios
 	private List<Produto> produtosConsultados;
 	private JTextField txtNome;
 	private JTextField txtPeso;
@@ -79,7 +76,7 @@ public class TelaListagemProdutos extends JFrame {
 
 		JButton btnConsultar = new JButton("Consultar");
 
-		btnConsultar.setBounds(160, 215, 150, 40);
+		btnConsultar.setBounds(90, 210, 150, 40);
 		contentPane.add(btnConsultar);
 
 		String[] cores = { "---Selecione---", TelaListagemProdutos.COR_AZUL, TelaListagemProdutos.COR_AMARELO,
@@ -116,18 +113,23 @@ public class TelaListagemProdutos extends JFrame {
 		btnGerarXls = new JButton("Gerar XLS");
 		btnGerarXls.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				JFileChooser janelaArquivos = new JFileChooser();
+
+				int opcaoSelecionada = janelaArquivos.showSaveDialog(null);
+
+				if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminho = janelaArquivos.getSelectedFile().getAbsolutePath();
+
+					ProdutoController controller = new ProdutoController();
+					String mensagem = controller.gerarPlanilha(produtosConsultados, caminho);
+
+					JOptionPane.showMessageDialog(null, mensagem);
+				}
 			}
 		});
-		btnGerarXls.setBounds(100, 404, 117, 29);
+		btnGerarXls.setBounds(240, 210, 150, 40);
 		contentPane.add(btnGerarXls);
-
-		btnGerarPdf = new JButton("Gerar PDF");
-		btnGerarPdf.setBounds(248, 404, 117, 29);
-		contentPane.add(btnGerarPdf);
-
 		btnGerarXls.setEnabled(false);
-		btnGerarPdf.setEnabled(false);
 
 		JLabel lblPeriodoCadastro = new JLabel("Período de cadastro");
 		lblPeriodoCadastro.setBounds(10, 110, 170, 20);
@@ -231,10 +233,7 @@ public class TelaListagemProdutos extends JFrame {
 	protected void atualizarTabelaProdutos(List<Produto> produtos) {
 		// atualiza o atributo produtosConsultados
 		produtosConsultados = produtos;
-
-		// TODO descomentar quando chegarmos em relatórios
-		// btnGerarXls.setEnabled(produtos != null && produtos.size() > 0);
-		// btnGerarPdf.setEnabled(produtos != null && produtos.size() > 0);
+		btnGerarXls.setEnabled(produtosConsultados != null && produtosConsultados.size() > 0);
 
 		// Limpa a tabela
 		tblProdutos.setModel(new DefaultTableModel(new String[][] { { "#", "Nome", "Marca", "Peso", "Dt. Cadastro" }, },
